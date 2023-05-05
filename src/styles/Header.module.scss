@@ -1,0 +1,130 @@
+
+//mixin
+@mixin mq767 {
+  @media only screen and (max-width: 767px) {
+    @content;
+  }
+}
+@mixin mq($size) {
+  @media only screen and (max-width: $size + px) {
+    @content;
+  }
+}
+
+.header {
+  position: relative;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  padding: 0;
+  width: 100%;
+  border-bottom: 2px dashed #666;
+  @include mq767 {
+    padding: 0 1%;
+    height: 60px;
+  }
+  &::before {
+    position: absolute;
+    right: 120px;
+    bottom: -15px;
+    display: block;
+    width: 60px;
+    height: 30px;
+    background: url('/img/img_scissors.svg') no-repeat center center var(--background);
+    background-size: 100% auto;
+    content: '';
+    @include mq767 {
+      right: 70px;
+      width: 30px;
+    }
+  }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  flex-flow: row nowrap;
+  border-right: 2px solid #424242;
+  width: 160px;
+  img {
+    margin: auto;
+    max-width: 100%;
+    line-height: 1;
+    @include mq767 {
+      margin: 0 10px 0 0;
+      width: 30px;
+      height: 60px;
+    }
+  }
+}
+.title_text {
+  font-weight: 700;
+  font-size: 8rem;
+  font-family: 'Oswald', sans-serif;
+  text-align: center;
+  line-height: 1;
+  padding: 16px;
+  @include mq767 {
+    font-size: 3.2rem;
+  }
+}
+
+.openbtn {
+  position: relative;
+  z-index: 11;
+  display: block;
+  width: 160px;
+  border-left: 2px solid var(--foreground);
+  cursor: pointer;
+  @include mq767 {
+    width: 50px;
+    height: 60px;
+  }
+  span {
+    position: absolute;
+    right: 7px;
+    display: inline-block;
+    height: 2px;
+    background: var(--foreground);
+    transition: transform .2s ease;
+    &:nth-of-type(1) {
+      top: 35px;
+      width: 80%;
+      @include mq767 {
+        top: 25px;
+        width: 70%;
+      }
+    }
+    &:nth-of-type(2) {
+      top: 55px;
+      width: 50%;
+      @include mq767 {
+        top: 35px;
+        width: 40%;
+      }
+    }
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 100%;
+  border-top: 2px solid #666;
+  animation: fadePosition 1s ease;
+  a {
+    padding: 4px 5%;
+    width: calc(100% / 4);
+    border-right: 1px solid #666;
+    text-align: center;
+    font-size: 3rem;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    opacity: 1;
+    &:last-child {
+      border-right: none;
+    }
+  }
+}

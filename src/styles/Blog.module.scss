@@ -1,0 +1,132 @@
+
+//mixin
+@mixin mq767 {
+  @media only screen and (max-width: 767px) {
+    @content;
+  }
+}
+@mixin mq($size) {
+  @media only screen and (max-width: $size + px) {
+    @content;
+  }
+}
+.main_visual {
+  width: calc(100% / 3 * 2);
+  border-bottom: 1px solid #444;
+  border-right: 1px solid #444;
+  background: url(/img/img_gramophone.svg) no-repeat bottom 20% right 5%;
+  background-size: 250px auto;
+  padding: 5rem;
+  .title {
+    white-space: nowrap;
+    font-size: 10rem;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+  }
+  p {
+    width: 100%;
+    font-size: 1.6rem;
+  }
+}
+.article_list {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 auto -1px;
+  width: 100%;
+}
+.article {
+  width: calc(100% / 3);
+  @include mq767 {
+    width: 100%;
+  }
+  a {
+    position: relative;
+    display: block;
+    padding: 5% 5% 85px;
+    width: 100%;
+    height: 100%;
+    border-right: 1px solid #444;
+    border-bottom: 1px solid #444;
+    transition: all .3s ease-in;
+    @include mq767 {
+      border-right: none;
+    }
+    &:hover {
+      background: #e0e0e0;
+      color: rgba(var(--foreground), .5);
+    }
+    &::before {
+      position: absolute;
+      bottom: 10px;
+      left: 5%;
+      display: inline-block;
+      margin: 0 10px 0 0;
+      content: 'MORE';
+    }
+  }
+  &:nth-child(2),
+  &:nth-child(3n + 2) {
+    a {
+      border-right: none;
+    }
+  }
+
+  img {
+    display: block;
+    margin: 10px auto;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    -webkit-filter: grayscale(100%);
+        -ms-filter: grayscale(100%);
+            filter: grayscale(100%);
+    transition: filter .6s ease;
+
+       -moz-filter: grayscale(100%);
+         -o-filter: grayscale(100%);
+  }
+
+  h2 {
+    margin: 0 auto 10px;
+    padding: 0;
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 1.4;
+  }
+
+  .date {
+    position: absolute;
+    right: 5%;
+    bottom: 30px;
+    left: 5%;
+    display: block;
+    margin: 0 auto 10px;
+    padding: 10px 0 10px 30px;
+    width: 90%;
+    border-top: 2px solid #444;
+    border-bottom: 1px solid #444;
+    font-size: 1.2rem;
+
+    &::before {
+      position: absolute;
+      top: 10px;
+      left: 0;
+      display: inline-block;
+      margin: 0 10px 0 0;
+      width: 20px;
+      height: 20px;
+      background: url(/img/img_date.svg) no-repeat center center;
+      background-size: 100% auto;
+      content: '';
+    }
+  }
+
+  a:hover img {
+    -webkit-filter: grayscale(0);
+        -ms-filter: grayscale(0);
+            filter: grayscale(0);
+
+       -moz-filter: grayscale(0);
+         -o-filter: grayscale(0);
+  }
+}
