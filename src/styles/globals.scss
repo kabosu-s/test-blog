@@ -100,6 +100,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
+	font-size: 1.6rem;
   line-height: 1.8;
   word-break: break-word;
   word-wrap: break-word;
@@ -182,8 +183,8 @@ a {
 
 //大外枠
 #__next {
-  width: calc(100% - 2%);
-  max-width: 1600px;
+  width: calc(100% - 5%);
+  max-width: 1400px;
   min-height: 98vh;
   margin: 3rem auto;
   border: 2px solid var(--foreground);

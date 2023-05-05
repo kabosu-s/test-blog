@@ -18,6 +18,8 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "highlight.js": "^11.8.0",
     "sass": "^1.62.1"
   }
 }

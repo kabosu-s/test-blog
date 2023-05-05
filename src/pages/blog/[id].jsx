@@ -1,7 +1,9 @@
 import Head from 'next/head';
-import Image from 'next/image';
+import { load } from 'cheerio';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/hybrid.css';
 
-import styles from '@/src/styles/Home.module.scss';
+import styles from '@/src/styles/Article.module.scss';
 import { Footer } from '@/src/components/Footer';
 import { Header } from '@/src/components/Header';
 import { client } from '@/libs/client';
@@ -10,16 +12,21 @@ export default function BlogId({ blog }) {
   return (
     <>
       <Head>
-        <title>{blog.title}｜QUIRKY GARBAGE</title>
+        <title>QUIRKY GARBAGE</title>
         <meta name="description" content="個別記事" />
       </Head>
       <Header />
-      <main className={`${styles.main}`}>
-        <h1>{blog.title}</h1>
-        <p>{blog.publishedAt}</p>
-        <div
+      <main className={`${styles.content}`}>
+        <div className={`${styles.mv_img}`}>
+          <img src={blog.mainimage.url} alt="" />
+        </div>
+        <h1 className={`${styles.title}`}>{`${blog.title}`}</h1>
+        <div className={`${styles.date}`}>{
+          new Date(`${blog.publishedAt}`).toLocaleDateString()
+        }</div>
+        <div className={`${styles.article_main}`}
           dangerouslySetInnerHTML={{
-            __html: `${blog.body}`,
+            __html: `${blog.content}`,
           }}
         />
       </main>
@@ -39,6 +46,15 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
   const id = context.params.id;
   const data = await client.get({ endpoint: 'blog', contentId: id });
+
+  const $ = load(data.body);
+  $('pre code').each((_, elm) => {
+    const result = hljs.highlightAuto($(elm).text());
+    $(elm).html(result.value);
+    $(elm).addClass('hljs');
+  });
+  data.content = $.html();
+
   return {
     props: {
       blog: data,
