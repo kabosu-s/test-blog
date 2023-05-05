@@ -7,8 +7,6 @@ import styles from '@/src/styles/Home.module.scss'
 import { Links } from "@/src/components/Links";
 
 
-
-
 export default function Home() {
   return (
     <>
