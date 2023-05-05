@@ -1,7 +1,5 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
-const inter = Inter({ subsets: ['latin'] })
 
 import styles from '@/src/styles/Home.module.scss'
 import { Links } from "@/src/components/Links";
@@ -15,7 +13,7 @@ export default function BlogId({ blog }) {
         <title>きじ</title>
         <meta name="description" content="About" />
       </Head>
-    <main className={`${styles.main} ${inter.className}`}>
+    <main className={`${styles.main}`}>
       <h1>{blog.title}</h1>
       <p>{blog.publishedAt}</p>
       <div

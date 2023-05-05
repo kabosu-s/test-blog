@@ -1,20 +1,20 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
-const inter = Inter({ subsets: ['latin'] })
+import Link from 'next/link'
 
 import styles from '@/src/styles/Home.module.scss'
 import { Links } from "@/src/components/Links";
+import { client } from "@/libs/client";
 
 
-export default function Home() {
+export default function Home({ blog }) {
   return (
     <>
       <Head>
         <title>Create Next App</title>
         <meta name="description" content="テスト" />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
+      <main className={`${styles.main}`}>
         <div className={styles.description}>
           <p>
             Get started by editing&nbsp;
@@ -39,6 +39,14 @@ export default function Home() {
           </div>
         </div>
 
+<ul>
+ {blog.map((blog) => (
+          <li key={blog.id}>
+            <Link href={`/blog/${blog.id}`}>{blog.title}</Link>
+          </li>
+        ))}
+</ul>
+
         <div className={styles.center}>
           <Image
             className={styles.logo}
@@ -54,3 +62,14 @@ export default function Home() {
     </>
   )
 }
+
+
+export const getStaticProps = async () => {
+  const data = await client.get({ endpoint: "blog" });
+
+  return {
+    props: {
+      blog: data.contents,
+    },
+  };
+};
