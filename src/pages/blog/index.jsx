@@ -33,7 +33,9 @@ export default function Home({ blog }) {
               <Link href={`/blog/${blog.id}`}>
               <img src={blog.mainimage.url} alt="" />
               <h2>{blog.title}</h2>
-              <div className={`${styles.date}`}>{blog.publishedAt}</div>
+              <div className={`${styles.date}`}>{
+              new Date(`${blog.publishedAt}`).toLocaleDateString()
+              }</div>
               </Link>
             </div>
           ))}
