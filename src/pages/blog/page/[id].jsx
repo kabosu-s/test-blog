@@ -13,8 +13,9 @@ import { Footer } from '@/src/components/Footer';
 import { Header } from '@/src/components/Header';
 import { Pagination } from '@/src/components/Pagination';
 
+const PER_PAGE = 4;
 
-export default function Home({ blogs, totalCount }) {
+export default function BlogPageId({ blogs, totalCount }) {
   return (
     <>
       <Head>
@@ -26,8 +27,8 @@ export default function Home({ blogs, totalCount }) {
         <div className={`${styles.article_list}`}>
         <div className={styles.main_visual}>
         <h1 className={styles.title}>Blog List</h1>
-        <p>Vue勉強がてら色々作ってみたので飽きるまで頑張るブログ。<br />
-        を…今ReactとNext.jsで作り直している。</p>
+        <p>今ReactとNext.jsで作り直している。<br />
+        昔の記事たち</p>
         </div>
           {blogs.map((blog) => (
             <div key={blog.id} className={`${styles.article}`}>
@@ -48,8 +49,18 @@ export default function Home({ blogs, totalCount }) {
   );
 };
 
-export const getStaticProps = async () => {
-  const data = await client.get({ endpoint: 'blog', queries: { offset: 0, limit: 4 } });
+// 動的なページを作成
+export const getStaticPaths = async () => {
+  const repos = await client.get({ endpoint: "blog" });
+  const range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i);
+  const paths = range(1, Math.ceil(repos.totalCount / PER_PAGE)).map((repo) => `/blog/page/${repo}`);
+  return { paths, fallback: false };
+};
+
+// データを取得
+export const getStaticProps = async (context) => {
+  const id = context.params.id;
+  const data = await client.get({ endpoint: "blog", queries: { offset: (id - 1) * 4, limit: 4 } });
   return {
     props: {
       blogs: data.contents,
