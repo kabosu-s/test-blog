@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import { client } from '@/libs/client';
+
 import { load } from 'cheerio';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/hybrid.css';
@@ -6,13 +8,13 @@ import 'highlight.js/styles/hybrid.css';
 import styles from '@/src/styles/Article.module.scss';
 import { Footer } from '@/src/components/Footer';
 import { Header } from '@/src/components/Header';
-import { client } from '@/libs/client';
+
 
 export default function BlogId({ blog }) {
   return (
     <>
       <Head>
-        <title>QUIRKY GARBAGE</title>
+        <title>{`${blog.title} ｜QUIRKY GARBAGE`}</title>
         <meta name="description" content="個別記事" />
       </Head>
       <Header />
@@ -29,6 +31,9 @@ export default function BlogId({ blog }) {
             __html: `${blog.content}`,
           }}
         />
+        <div>
+        {blog.tag}
+        </div>
       </main>
       <Footer />
     </>
@@ -46,7 +51,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
   const id = context.params.id;
   const data = await client.get({ endpoint: 'blog', contentId: id });
-
+  // 本文にシンタックスハイライト追加
   const $ = load(data.body);
   $('pre code').each((_, elm) => {
     const result = hljs.highlightAuto($(elm).text());
@@ -54,7 +59,6 @@ export const getStaticProps = async (context) => {
     $(elm).addClass('hljs');
   });
   data.content = $.html();
-
   return {
     props: {
       blog: data,
