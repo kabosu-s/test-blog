@@ -23,11 +23,19 @@ export default function Home() {
       <Header />
       <main className={`${styles.main} ${notoSansJapanese.className}`}>
       <div className={`${styles.main_visual}`}>
-      Next.jsにしてみたよー
+        <Image
+          src="/img/img_misin.svg"
+          width={600}
+          height={400}
+          alt=""
+        />
+        <p>Next.jsにしてみたよ</p>
       </div>
       <div className={`${styles.content}`}>
-        <h1>ABOUT</h1>
-        <p> Vue-CliとHeadlessCMSの勉強を兼ねてのブログ<br /> 目的なく、色々改造しながら気ままに続けてみます。 </p>
+      <Link href="/about">
+      <h2>ABOUT</h2>
+        <p> Vue-CliとHeadlessCMSの勉強を兼ねてのブログのNext.js版<br /> 目的なく、色々改造しながら気ままに続けてみます。 </p>
+      </Link>
       </div>
       </main>
       <Footer />

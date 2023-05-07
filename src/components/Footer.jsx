@@ -1,4 +1,4 @@
-
+import Image from 'next/image';
 import Link from 'next/link';
 import styles from '@/src/styles/Footer.module.scss';
 
@@ -15,7 +15,12 @@ export function Footer() {
           <p>Author：Saeki</p>
         </div>
         <small>
-          <img src="/img/copyright.svg" alt="© Garbage Base." />
+        <Image
+          src="/img/copyright.svg"
+          width={1400}
+          height={190}
+          alt="© Garbage Base."
+        />
         </small>
       </footer>
   );

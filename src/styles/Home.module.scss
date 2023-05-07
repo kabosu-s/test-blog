@@ -1,39 +1,73 @@
-.main_visual {
-  align-items: center;
-  color: #666;
-  display: flex;
-  flex-flow: column wrap;
-  font-size: 1.4rem;
-  font-weight: 400;
-  justify-content: center;
-  align-content: center;
-  margin: auto;
-  padding: 5%;
-  width: 100%;
-  height: 650px;
-  position: relative;
-  overflow: hidden;
-  flex-grow: 2;
+//mixin
+@mixin mq767 {
+  @media only screen and (max-width: 767px) {
+    @content;
+  }
+}
+@mixin mq($size) {
+  @media only screen and (max-width: $size + px) {
+    @content;
+  }
 }
 
+.main {
+  display: flex;
+  flex-flow: row nowrap;
+  min-height: 50vh;
+  @include mq767 {
+    flex-flow: row wrap;
+  }
+  .main_visual {
+    padding: 5%;
+    width: calc(100% / 3 * 2);
+    border-right: 1px solid rgba(var(--foreground),1);
+    text-align: center;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+  @include mq767 {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(var(--foreground),1);
+  }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    p {
+      width: 100%;
+      font-size: 2rem;
+      text-align: center;
+      margin: 30px auto 0;
+    }
+  }
+}
 .content {
-  border-top: 1px solid var(--foreground);
-  overflow: hidden;
   position: relative;
-  background: url(/img/img_baqet.svg) no-repeat bottom 5% right 3%;
-  background-size: 300px auto;
-  padding: 0 3%;
-  width: 100%;
-  height: 400px;
-  min-height: 400px;
-
-  h1 {
-    font-size: 30rem;
-    line-height: 1;
-    margin: -45px auto auto -4%;
-    font-family: 'Oswald', sans-serif;
-    color: #dbdbdb;
+  width: calc(100% / 3);
+  background: url(/img/img_baqet.svg) no-repeat bottom 15% right 20%;
+  background-size: 60% auto;
+  @include mq767 {
+    width: 100%;
+  }
+  a {
+    border: 2px dashed rgba(var(--foreground), .5);
+    display: block;
+    width: 90%;
+    height: 90%;
+    margin: 5% auto;
+    padding: 20px;
+  @include mq767 {
+      padding: 20px 20px 240px;
+  }
+  }
+  h2 {
     white-space: nowrap;
+    font-size: 7rem;
+    font-family: 'Oswald', sans-serif;
+    margin-bottom: 40px;
+    line-height: 1;
   }
 }
 
@@ -58,9 +92,7 @@
 
 /* Mobile */
 @media (max-width: 700px) {
-  .content {
-    padding: 4rem;
-  }
+
 
   .grid {
     margin-bottom: 120px;
@@ -85,30 +117,6 @@
   .center::before {
     height: 300px;
     transform: none;
-  }
-  .description {
-    font-size: .8rem;
-    a {
-      padding: 1rem;
-    }
-    div {
-      position: fixed;
-      display: flex;
-      justify-content: center;
-      width: 100%;
-
-      inset: auto 0 0;
-      z-index: 1;
-      align-items: flex-end;
-      padding: 2rem;
-      height: 200px;
-      background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgb(var(--background)) 40%
-      );
-      pointer-events: none;
-    }
   }
 }
 

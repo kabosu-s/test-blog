@@ -21,7 +21,7 @@
     width: 100%;
     height: 100%;
     text-align: center;
-    border-left: 1px dotted #666;
+    border-left: 1px dotted rgba(var(--foreground),1);
     &:first-child {
       border-left:none;
     }

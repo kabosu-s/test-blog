@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styles from '@/src/styles/Pagination.module.scss';
 
 export function Pagination({ totalCount }) {
-  const PER_PAGE = 5;
+  const PER_PAGE = 7;
   const range = (start, end) =>
         [...Array(end - start + 1)].map((_, i) => start + i)
   return (

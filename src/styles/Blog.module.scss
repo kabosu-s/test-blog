@@ -17,6 +17,9 @@
   background: url(/img/img_gramophone.svg) no-repeat bottom 20% right 5%;
   background-size: 250px auto;
   padding: 5rem;
+  @include mq767 {
+    width: 100%;
+  }
   .title {
     white-space: nowrap;
     font-size: 10rem;

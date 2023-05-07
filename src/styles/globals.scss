@@ -3,13 +3,13 @@
 :root {
   --max-width: 1200px;
   --border-radius: 6px;
-  --background: #f0f0f0;
+  --background: 240, 240, 240;
   --card-border-rgb: 131, 134, 135;
   --card-rgb: 180, 185, 188;
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
   'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
   'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
-  --foreground: #2c3e50;
+  --foreground: 44, 62, 80;
   --primary-glow: conic-gradient(
   from 180deg at 50% 50%,
   #16abff33 0deg,
@@ -37,10 +37,10 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #2c3e50;
+    --background: 44, 62, 80;
     --card-border-rgb: 200, 200, 200;
     --card-rgb: 100, 100, 100;
-    --foreground:  #f0f0f0;
+    --foreground:  240, 240, 240;
     --primary-glow: radial-gradient(rgba(1, 65, 255, .4), rgba(1, 65, 255, 0));
     --secondary-glow: linear-gradient(
     to bottom right,
@@ -98,8 +98,8 @@ html {
 	overflow-y: scroll;
 }
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: rgba(var(--background),1);
+  color: rgba(var(--foreground),1);
 	font-size: 1.6rem;
   line-height: 1.8;
   word-break: break-word;
@@ -178,7 +178,7 @@ select {
 a {
   color: inherit;
   text-decoration: none;
-  color: var(--foreground);
+  color: rgba(var(--foreground),1);
 }
 
 //大外枠
@@ -187,7 +187,10 @@ a {
   max-width: 1400px;
   min-height: 98vh;
   margin: 3rem auto;
-  border: 2px solid var(--foreground);
+  border-top: 8px solid rgba(var(--foreground),1);
+  border-bottom: 8px solid rgba(var(--foreground),1);
+  border-left: 2px solid rgba(var(--foreground),1);
+  border-right: 2px solid rgba(var(--foreground),1);
   display: flex;
   flex-flow: column wrap;
 }
