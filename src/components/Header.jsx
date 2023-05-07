@@ -21,8 +21,8 @@ export function Header() {
       <nav className={`${styles.nav} ${styles.active}`}>
         <Link href="/">HOME</Link>
         <Link href="/blog">BLOG</Link>
-        <Link href="/about">ABOUT</Link>
-        <Link href="/contact">CONTACT</Link>
+        <Link href="#">ABOUT</Link>
+        <Link href="#">CONTACT</Link>
       </nav>
     </header>
   );
