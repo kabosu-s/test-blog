@@ -35,7 +35,7 @@ export default function BlogId({ blog, tags }) {
                 }} />
           </div>
           <div className={`${styles.tag_box}`}>
-          <h2>Tag List</h2>
+          <h2>CATEGORY</h2>
             <ul>
             {tags.map((tag) => (
               <li key={tag.id}>
