@@ -8,7 +8,7 @@ export function Footer() {
         <nav className={`${styles.nav}`}>
           <Link href="/">HOME</Link>
           <Link href="/blog">BLOG</Link>
-          <Link href="#">ABOUT</Link>
+          <Link href="/about">ABOUT</Link>
           <Link href="#">CONTACT</Link>
         </nav>
         <div className={`${styles.sub}`}>
