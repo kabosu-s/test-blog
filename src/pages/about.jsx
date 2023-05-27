@@ -44,7 +44,7 @@ export default function Page ({data}) {
 export async function getStaticProps() {
   try {
     // StrapiのエンドポイントURLを指定
-    const apiUrl = 'http://localhost:1337/api/static-pages'; 
+    const apiUrl = 'https://strapi-production-65d6.up.railway.app/api/static-pages'; 
 
     // Strapiからデータを取得
     const response = await axios.get(apiUrl);
