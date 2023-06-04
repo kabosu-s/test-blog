@@ -1,0 +1,50 @@
+//mixin
+@mixin mq767 {
+  @media only screen and (max-width: 767px) {
+    @content;
+  }
+}
+@mixin mq($size) {
+  @media only screen and (max-width: $size + px) {
+    @content;
+  }
+}
+
+.main {
+  display: flex;
+  flex-flow: row nowrap;
+  min-height: 60vh;
+  @include mq767 {
+    flex-flow: row wrap;
+  }
+  .main_visual {
+    display: grid;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    padding: 5%;
+    width: 100%;
+    text-align: center;
+    h1 {
+      text-align: center;
+      font-weight: 700;
+      font-size: 6rem;
+      font-family: 'Oswald', sans-serif;
+    }
+    img {
+      margin: 60px auto;
+      max-width: 380px;
+      width: 90%;
+      height: auto;
+    }
+    .content {
+      margin: 0 auto;
+      padding: 10px;
+      width: 80%;
+      p {
+        font-size: 1.6rem;
+        margin: 0 auto 2rem;
+      }
+    }
+  }
+}
