@@ -13,8 +13,6 @@ import { Footer } from '@/src/components/Footer';
 import { Header } from '@/src/components/Header';
 import { Pagination } from '@/src/components/Pagination';
 
-const PER_PAGE = 4;
-
 export default function BlogPageId({ blogs, totalCount }) {
   return (
     <>
@@ -50,6 +48,7 @@ export default function BlogPageId({ blogs, totalCount }) {
 };
 
 // 動的なページを作成
+const PER_PAGE = 4;
 export const getStaticPaths = async () => {
   const repos = await client.get({ endpoint: "blog" });
   const range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i);
