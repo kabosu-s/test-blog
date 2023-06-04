@@ -27,9 +27,14 @@ export default function Page ({posts, apiUrl}) {
       <main className={`${styles.main} ${notoSansJapanese.className}`}>
         {posts.map((post) => (
           <div key={post.id} className={`${styles.main_visual}`}>
-            <img src={`${post?.attributes?.viewimage?.data?.attributes?.url}`} alt="" />
-            <h1>{post.attributes.pagename}</h1>
-            <div className={`${styles.content}`} dangerouslySetInnerHTML={{ __html: post.attributes.content }} />
+          <Image
+            src={`${post?.attributes?.viewimage?.data?.attributes?.url}`}
+            width={226}
+            height={150}
+            alt=""
+          />
+          <h1>{post.attributes.pagename}</h1>
+          <div className={`${styles.content}`} dangerouslySetInnerHTML={{ __html: post.attributes.content }} />
           </div>
         ))}
       </main>

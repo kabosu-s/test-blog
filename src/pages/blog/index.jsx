@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 
+
 import { Noto_Sans_JP } from 'next/font/google'
 const notoSansJapanese = Noto_Sans_JP({
   weight: '400',
