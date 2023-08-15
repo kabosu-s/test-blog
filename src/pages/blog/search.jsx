@@ -11,22 +11,23 @@ const notoSansJapanese = Noto_Sans_JP({
 })
 
 import styles from '@/src/styles/Blog.module.scss';
-
 import { Footer } from '@/src/components/Footer';
 import { Header } from '@/src/components/Header';
-// import { Pagination } from '@/src/components/Pagination';
 
 
 export default function Home({ blogs }) {
 
-const [searchQuery, setSearchQuery] = useState('');
-const [searchResults, setSearchResults] = useState([]);
-const handleSearch = async (e) => {
-    e.preventDefault();
-    // ブログ記事を検索するAPIなどを呼び出す
-    const searchResults = await searchBlogPosts(searchQuery);
-    // 検索結果をセットする
-    setSearchResults(searchResults);
+  const [keyword, setKeyword] = useState("");
+  const [searchResults, setBlogs] = useState([]);
+  const handleSearch = async () => {
+    // 検索APIにリクエストを送信
+    const res = await axios.get('/api/search', {
+      params: {
+        keyword,
+      },
+    });
+    // 検索結果をセット
+    setBlogs(res.data.contents);
   };
 
   return (
@@ -39,60 +40,39 @@ const handleSearch = async (e) => {
       <main className={`${styles.main} ${notoSansJapanese.className}`}>
         <div className={`${styles.article_list}`}>
             <div className={styles.main_visual}>
-                <h1 className={styles.title}>SEARCH</h1>
-                {/* 検索フォーム */}
-                <form onSubmit={handleSearch}>
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                  <button type="submit">検索</button>
-                </form>
+              <h1 className={styles.title}>SEARCH</h1>
+              <p>ブログのフリーワード検索</p>
             </div>
-            <div>
-            {/* 検索結果 */}
-            {searchResults && searchResults.length > 0 ? (
-              searchResults.map((post) => (
-                <div key={post.pagename}>
-                    <h2>{post.pagename}</h2>
-                    <div dangerouslySetInnerHTML={{ __html: post.content }} />
-                </div>
+            <div className={`${styles.article}`}>
+                {/* 検索フォーム */}
+                <input
+                  type="text"
+                  value={keyword}
+                  onChange={(e) => setKeyword(e.target.value)}
+                />
+                <button onClick={handleSearch} type="submit">検索</button>
+            </div>
+            {/* 検索結果 */
+            searchResults && searchResults.length > 0 ? (
+            searchResults.map((blog) => (
+              <div key={blog.id} className={`${styles.article}`}>
+                <Link href={`/blog/${blog.id}`}>
+                <img src={blog.mainimage.url} alt="" />
+                <h2>{blog.title}</h2>
+                <div className={`${styles.date}`}>{
+                new Date(`${blog.publishedAt}`).toLocaleDateString()
+                }</div>
+                </Link>
+              </div>
               ))
             ) : (
-              <div>検索結果が見つかりませんでした。</div>
+              <div className={`${styles.article}`}>検索結果が見つかりませんでした。</div>
             )}
           </div>
-        </div>
       </main>
       <Footer />
     </>
   );
 };
 
-// 記事を検索する
-const searchBlogPosts = async (query) => {
-  try {
-    // 記事のデータを取得
-    const apiUrl = 'https://strapi-production-65d6.up.railway.app';
-    // const apiUrl = 'http://localhost:1337';
-    const endpoint = apiUrl + '/api/static-pages?populate=*';
-    // Strapiからデータを取得
-    const response = await axios.get(endpoint);
-    // レスポンスのデータを取り出す
-    const data = response.data?.data;
-// レスポンスのデータがオブジェクト形式の場合、配列に変換してからフィルタリング
-const filteredResults = Object.values(data).map((item) => item.attributes).filter((post) => {
-  const titleMatches = post?.pagename?.toLowerCase().includes(query.toLowerCase());
-  const contentMatches = post?.content?.toLowerCase().includes(query.toLowerCase());
 
-  // タイトルまたは内容にクエリが含まれる記事を抽出
-  return titleMatches || contentMatches;
-});
-
-    return filteredResults;
-  } catch (error) {
-    console.error('Error searching blog posts:', error);
-    return [];
-  }
-};
