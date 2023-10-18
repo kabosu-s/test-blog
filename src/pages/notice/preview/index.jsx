@@ -1,12 +1,16 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import axios from 'axios';
 
 import styles from '@/src/styles/Blog.module.scss';
 import { Footer } from '@/src/components/Footer';
 import { Header } from '@/src/components/Header';
 
-
 export default function Page({ response }) {
+  if (!response || !response.details) {
+    // エラーが発生した場合やデータが存在しない場合の処理
+    return <div>Error: Data not available</div>;
+  }
   return (
     <>
       <Head>
@@ -15,23 +19,25 @@ export default function Page({ response }) {
       </Head>
       <Header />
       <main className={`${styles.main}`}>
-          <div className={`${styles.article_box}`}>
-            <h1 className={`${styles.title}`}>{response.details.subject}</h1>
-            <div className={`${styles.date}`}>{
-              new Date(`${response.details.ymd}`).toLocaleDateString()
-              }</div>
-            <div className={`${styles.article_main}`} dangerouslySetInnerHTML={{ __html: response.details.ext_3 }} />
-          </div>
+    <div>
+      <h1 className="title">{response.details.subject}</h1>
+      <div className="post" dangerouslySetInnerHTML={{ __html: response.details.ext_3 }} />
+    </div>
       </main>
       <Footer />
     </>
   );
 }
 
-export async function getServerSideProps({ params }) {
+
+export async function getServerSideProps({ query }) {
   try {
-    const { slug } = params;
-    const response = await axios.get(`https://ekilabo.g.kuroco.app/rcms-api/3/notice/${slug}`);
+    const { preview_token } = query;
+    const response = await axios.get(`https://ekilabo.g.kuroco.app/rcms-api/4/notice/preview`, {
+      params: {
+        preview_token,
+      },
+    });
 
     return {
       props: {
