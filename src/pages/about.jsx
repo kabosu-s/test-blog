@@ -15,7 +15,7 @@ import { Footer } from '@/src/components/Footer';
 import { Header } from '@/src/components/Header';
 
 async function getData() {
-  const res = await fetch(process.env.NEXT_PUBLIC_BASE_URL + '/rcms-api/3/notices');
+  const res = await fetch('https://ekilabo.g.kuroco.app/rcms-api/3/notices');
   return res.json();
 }
 
