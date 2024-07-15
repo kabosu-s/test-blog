@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 
 import { client } from '@/libs/client';
-
+import Image from 'next/image';
 import { load } from 'cheerio';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/hybrid.css';
@@ -22,7 +22,7 @@ export default function BlogId({ blog, tags, prev, next }) {
       <main className={`${styles.main}`}>
         <div className={`${styles.article_box}`}>
           <div className={`${styles.mv_img}`}>
-            <img src={blog.mainimage.url} alt="" />
+          <Image src={`${blog.mainimage.url}`} width={1200} height={600} alt="" decoding="async" loading="lazy" />
           </div>
           <h1 className={`${styles.title}`}>{`${blog.title}`}</h1>
           <div className={`${styles.date}`}>{new Date(`${blog.publishedAt}`).toLocaleDateString()}</div>
@@ -42,7 +42,7 @@ export default function BlogId({ blog, tags, prev, next }) {
                     {prev.title}
                   </dt>
                   <dd className={`${styles.img_box}`}>
-                    <img src={prev.mainimage.url} alt="" />
+                  <Image src={`${prev.mainimage.url}`} width={1200} height={600} alt="" decoding="async" loading="lazy" />
                   </dd>
                 </dl>
               </Link>
@@ -55,7 +55,7 @@ export default function BlogId({ blog, tags, prev, next }) {
                     {next.title}
                   </dt>
                   <dd className={`${styles.img_box}`}>
-                    <img src={next.mainimage.url} alt="" />
+                    <Image src={`${next.mainimage.url}`} width={1200} height={600} alt="" decoding="async" loading="lazy" />
                   </dd>
                 </dl>
               </Link>

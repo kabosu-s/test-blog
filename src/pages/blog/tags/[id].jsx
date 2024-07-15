@@ -11,7 +11,7 @@ import styles from '@/src/styles/Blog.module.scss';
 import { client } from '@/libs/client';
 import { Footer } from '@/src/components/Footer';
 import { Header } from '@/src/components/Header';
-
+import Image from 'next/image';
 
 export default function BlogPageId({ blogs }) {
 
@@ -47,7 +47,7 @@ export default function BlogPageId({ blogs }) {
           {blogs.map((blog) => (
             <div key={blog.id} className={`${styles.article}`}>
               <Link href={`/blog/${blog.id}`}>
-              <img src={blog.mainimage.url} alt="" />
+              <Image src={`${blog.mainimage.url}`} width={1200} height={600} alt="" decoding="async" loading="lazy" />
               <h2>{blog.title}</h2>
               <div className={`${styles.date}`}>{
               new Date(`${blog.publishedAt}`).toLocaleDateString()

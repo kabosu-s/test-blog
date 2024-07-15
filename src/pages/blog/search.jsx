@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import axios from 'axios';
 import { useState } from 'react';
-
+import Image from 'next/image';
 import { Noto_Sans_JP } from 'next/font/google'
 const notoSansJapanese = Noto_Sans_JP({
   weight: '400',
@@ -57,7 +57,7 @@ export default function Home({ blogs }) {
             searchResults.map((blog) => (
               <div key={blog.id} className={`${styles.article}`}>
                 <Link href={`/blog/${blog.id}`}>
-                <img src={blog.mainimage.url} alt="" />
+                <Image src={`${prev.mainimage.url}`} width={1200} height={600} alt="" decoding="async" loading="lazy" />
                 <h2>{blog.title}</h2>
                 <div className={`${styles.date}`}>{
                 new Date(`${blog.publishedAt}`).toLocaleDateString()
