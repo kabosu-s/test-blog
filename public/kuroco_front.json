@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": ".*",
+      "destination": "status:404"
+    }
+  ],
+  "redirects": [],
+  "ip_restrictions": [],
+  "error_page": {
+    "status404":"/404.html",
+    "status401":"/401.html",
+    "status403":"/403.html",
+    "status_ip_503":"/ip_503.html"
+  }
+}

@@ -19,3 +19,5 @@ export function Pagination({ totalCount }) {
       </ul>
     );
 }
+
+import { Pagination } from '@/src/components/KurokoPagination';
